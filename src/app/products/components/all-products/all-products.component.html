@@ -1,0 +1,30 @@
+<div class="mt-5">
+    <div class="my-2 w-25">
+   <app-select [data]="categories" [title]="'categories'" (selectedValue)="filterCategories($event)"></app-select>
+    </div>
+    <div class="row" *ngIf="specificCategory==0">
+        <div class="col-md-3 col-sm-12"  *ngFor="let item of ProductsList">
+            <app-product [data]="item"  (item)="addToCart($event)"></app-product>
+        </div>
+    </div>
+</div>
+<div *ngIf="specificCategory.length!=0" class="row" >
+    <div class="col-md-3 col-sm-12" *ngFor="let item of specificCategory" routerLink = "/details/{{item.id}}"  >
+        <div class="item">
+            <img src="{{item.image}}" alt="">
+            <div class="body">
+                <h4>{{item.title}}</h4>
+                <p>{{item.description}}</p>
+            </div>
+            <div class="px-3 mb-2 d-flex justify-content-between align-items-center">
+                <button class="btn btn-success">Add To Cart</button>
+                <span>{{item.price}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="loadingSpinner"  class="text-center w-100" >
+    <app-spinner></app-spinner>
+</div>
+    
